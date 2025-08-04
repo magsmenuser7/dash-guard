@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 import { 
   BrainCircuit, 
   BarChart3, 
@@ -24,6 +26,37 @@ import {
 } from "lucide-react";
 
 const Dashboard = () => {
+  const { toast } = useToast();
+  const [isTraining, setIsTraining] = useState(false);
+  const [trainingProgress, setTrainingProgress] = useState(0);
+  const [showResponse, setShowResponse] = useState(false);
+
+  const handleStartTraining = () => {
+    setIsTraining(true);
+    setTrainingProgress(0);
+    
+    // Simulate training progress
+    const interval = setInterval(() => {
+      setTrainingProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setIsTraining(false);
+          toast({
+            title: "Training Complete",
+            description: "Your AI agent has been successfully trained!",
+          });
+          return 100;
+        }
+        return prev + 2;
+      });
+    }, 100);
+  };
+
+  const handleTestModel = () => {
+    setShowResponse(true);
+    setTimeout(() => setShowResponse(false), 5000);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -232,6 +265,7 @@ const Dashboard = () => {
                       <SelectItem value="custom">Custom Model</SelectItem>
                       <SelectItem value="gpt-3.5">GPT-3.5 Turbo</SelectItem>
                       <SelectItem value="gpt-4">GPT-4</SelectItem>
+                      <SelectItem value="claude-3">Claude 3 Sonnet</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -246,19 +280,19 @@ const Dashboard = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="learning-rate" className="text-foreground">Learning Rate</Label>
-                    <Input id="learning-rate" defaultValue="0.001" className="bg-input border-border" />
+                    <Input id="learning-rate" defaultValue="0.001" className="bg-input border-border" disabled />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="batch-size" className="text-foreground">Batch Size</Label>
-                    <Input id="batch-size" defaultValue="32" className="bg-input border-border" />
+                    <Input id="batch-size" defaultValue="32" className="bg-input border-border" disabled />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="epochs" className="text-foreground">Epochs</Label>
-                    <Input id="epochs" defaultValue="10" className="bg-input border-border" />
+                    <Input id="epochs" defaultValue="10" className="bg-input border-border" disabled />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="temperature" className="text-foreground">Temperature</Label>
-                    <Input id="temperature" defaultValue="0.7" className="bg-input border-border" />
+                    <Input id="temperature" defaultValue="0.7" className="bg-input border-border" disabled />
                   </div>
                 </div>
                 <div className="space-y-2">
@@ -267,6 +301,7 @@ const Dashboard = () => {
                     id="system-prompt" 
                     defaultValue="You are a helpful AI assistant that..."
                     className="bg-input border-border min-h-[100px]"
+                    disabled
                   />
                 </div>
               </CardContent>
@@ -283,19 +318,35 @@ const Dashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex gap-4">
-                  <Button variant="gradient" className="flex items-center gap-2">
-                    <Play className="w-4 h-4" />
-                    Start Training
-                  </Button>
-                  <Button variant="outline" className="flex items-center gap-2">
-                    <Pause className="w-4 h-4" />
-                    Pause
-                  </Button>
-                  <Button variant="outline" className="flex items-center gap-2">
-                    <Square className="w-4 h-4" />
-                    Stop
-                  </Button>
+                <div className="space-y-4">
+                  <div className="flex gap-4">
+                    <Button 
+                      variant="gradient" 
+                      className="flex items-center gap-2"
+                      onClick={handleStartTraining}
+                      disabled={isTraining}
+                    >
+                      <Play className="w-4 h-4" />
+                      {isTraining ? "Training..." : "Start Training"}
+                    </Button>
+                    <Button variant="outline" className="flex items-center gap-2" disabled={!isTraining}>
+                      <Pause className="w-4 h-4" />
+                      Pause
+                    </Button>
+                    <Button variant="outline" className="flex items-center gap-2" disabled={!isTraining}>
+                      <Square className="w-4 h-4" />
+                      Stop
+                    </Button>
+                  </div>
+                  {isTraining && (
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Training Progress</span>
+                        <span className="text-foreground font-medium">{trainingProgress}%</span>
+                      </div>
+                      <Progress value={trainingProgress} className="w-full" />
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -333,9 +384,17 @@ const Dashboard = () => {
                     className="bg-input border-border min-h-[100px]"
                   />
                 </div>
-                <Button variant="gradient" className="w-full">
+                <Button variant="gradient" className="w-full" onClick={handleTestModel}>
                   Test Model Response
                 </Button>
+                {showResponse && (
+                  <div className="mt-4 p-4 bg-muted/20 rounded-lg border border-border">
+                    <h4 className="font-medium text-foreground mb-2">Model Response</h4>
+                    <p className="text-muted-foreground text-sm">
+                      This is a simulated response from your trained AI agent.
+                    </p>
+                  </div>
+                )}
               </CardContent>
             </Card>
 

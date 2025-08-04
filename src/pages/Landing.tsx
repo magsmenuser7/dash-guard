@@ -12,20 +12,20 @@ const Landing = () => {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse delay-1000" />
       
-      <div className="relative z-10 text-center max-w-4xl px-6">
+      <div className="relative z-10 text-center max-w-4xl px-8 mx-auto">
         {/* Logo/Icon */}
-        <div className="mb-8 flex justify-center">
-          <div className="p-4 rounded-full bg-gradient-primary shadow-glow">
-            <BrainCircuit className="w-12 h-12 text-primary-foreground" />
+        <div className="mb-6 flex justify-center">
+          <div className="p-3 rounded-full bg-gradient-primary shadow-glow">
+            <BrainCircuit className="w-10 h-10 text-primary-foreground" />
           </div>
         </div>
 
         {/* Hero Text */}
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground via-primary to-accent bg-clip-text text-transparent">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-foreground via-primary to-accent bg-clip-text text-transparent">
           AI Training <span className="text-primary">Admin Panel</span>
         </h1>
         
-        <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto leading-relaxed">
           Powerful interface to train, monitor, and deploy your AI models with
           advanced analytics and real-time monitoring.
         </p>
@@ -53,44 +53,44 @@ const Landing = () => {
         </div>
 
         {/* Feature Cards */}
-        <div className="grid md:grid-cols-3 gap-8 mt-20">
-          <div className="p-6 rounded-xl bg-gradient-card border border-border shadow-card hover:shadow-glow transition-all duration-300">
-            <div className="mb-4">
-              <BrainCircuit className="w-8 h-8 text-primary mx-auto" />
+        <div className="grid md:grid-cols-3 gap-6 mt-16 px-4">
+          <div className="p-5 rounded-xl bg-gradient-card border border-border shadow-card hover:shadow-glow transition-all duration-300">
+            <div className="mb-3">
+              <BrainCircuit className="w-6 h-6 text-primary mx-auto" />
             </div>
-            <h3 className="text-xl font-semibold mb-3 text-foreground">AI Training</h3>
-            <p className="text-muted-foreground">
+            <h3 className="text-lg font-semibold mb-2 text-foreground">AI Training</h3>
+            <p className="text-sm text-muted-foreground mb-3">
               Upload datasets and train custom AI models with advanced configuration options.
             </p>
-            <Button variant="glass" className="mt-4 w-full">
+            <Button variant="glass" className="w-full" size="sm">
               Explore Training
             </Button>
           </div>
 
-          <div className="p-6 rounded-xl bg-gradient-card border border-border shadow-card hover:shadow-glow transition-all duration-300">
-            <div className="mb-4">
-              <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center mx-auto">
-                <div className="w-4 h-4 bg-primary rounded-sm"></div>
+          <div className="p-5 rounded-xl bg-gradient-card border border-border shadow-card hover:shadow-glow transition-all duration-300">
+            <div className="mb-3">
+              <div className="w-6 h-6 bg-primary/20 rounded-lg flex items-center justify-center mx-auto">
+                <div className="w-3 h-3 bg-primary rounded-sm"></div>
               </div>
             </div>
-            <h3 className="text-xl font-semibold mb-3 text-foreground">Analytics Dashboard</h3>
-            <p className="text-muted-foreground">
+            <h3 className="text-lg font-semibold mb-2 text-foreground">Analytics Dashboard</h3>
+            <p className="text-sm text-muted-foreground mb-3">
               Monitor model performance, training metrics, and system health in real-time.
             </p>
-            <Button variant="glass" className="mt-4 w-full">
+            <Button variant="glass" className="w-full" size="sm">
               View Dashboard
             </Button>
           </div>
 
-          <div className="p-6 rounded-xl bg-gradient-card border border-border shadow-card hover:shadow-glow transition-all duration-300">
-            <div className="mb-4">
-              <Zap className="w-8 h-8 text-primary mx-auto" />
+          <div className="p-5 rounded-xl bg-gradient-card border border-border shadow-card hover:shadow-glow transition-all duration-300">
+            <div className="mb-3">
+              <Zap className="w-6 h-6 text-primary mx-auto" />
             </div>
-            <h3 className="text-xl font-semibold mb-3 text-foreground">Model Management</h3>
-            <p className="text-muted-foreground">
+            <h3 className="text-lg font-semibold mb-2 text-foreground">Model Management</h3>
+            <p className="text-sm text-muted-foreground mb-3">
               Deploy, version, and manage your AI models with enterprise-grade controls.
             </p>
-            <Button variant="glass" className="mt-4 w-full">
+            <Button variant="glass" className="w-full" size="sm">
               Get Started
             </Button>
           </div>
