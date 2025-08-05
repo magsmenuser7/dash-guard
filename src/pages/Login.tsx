@@ -43,8 +43,8 @@ const Login = () => {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse delay-1000" />
       
-      <div className="relative z-10 w-full max-w-md px-6 mx-4">
-        <div className="bg-gradient-card border border-border rounded-2xl p-6 shadow-card mx-4">
+      <div className="relative z-10 w-full max-w-lg px-6 mx-4">
+        <div className="bg-gradient-card border border-border rounded-2xl p-5 shadow-card mx-4" style={{minHeight: 'calc(100% - 15px)'}}>
           {/* Logo */}
           <div className="mb-8 flex justify-center">
             <div className="p-3 rounded-full bg-gradient-primary shadow-glow">

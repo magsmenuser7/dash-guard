@@ -194,11 +194,32 @@ const Dashboard = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="border-2 border-dashed border-border rounded-lg p-12 text-center">
+                <div className="border-2 border-dashed border-border rounded-lg p-12 text-center hover:border-primary/50 transition-colors">
                   <Upload className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
                   <h3 className="text-lg font-medium text-foreground mb-2">Drop your training files here</h3>
                   <p className="text-muted-foreground mb-4">Supports JSON, CSV, TXT formats</p>
-                  <Button variant="outline">Browse Files</Button>
+                  <input
+                    type="file"
+                    id="file-upload"
+                    className="hidden"
+                    accept=".json,.csv,.txt"
+                    multiple
+                    onChange={(e) => {
+                      const files = Array.from(e.target.files || []);
+                      if (files.length > 0) {
+                        toast({
+                          title: "Files uploaded",
+                          description: `${files.length} file(s) uploaded successfully`,
+                        });
+                      }
+                    }}
+                  />
+                  <Button 
+                    variant="outline" 
+                    onClick={() => document.getElementById('file-upload')?.click()}
+                  >
+                    Browse Files
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -280,28 +301,27 @@ const Dashboard = () => {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <Label htmlFor="learning-rate" className="text-foreground">Learning Rate</Label>
-                    <Input id="learning-rate" defaultValue="0.001" className="bg-input border-border" disabled />
+                    <Input id="learning-rate" placeholder="Enter learning rate (e.g., 0.001)" className="bg-input border-border" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="batch-size" className="text-foreground">Batch Size</Label>
-                    <Input id="batch-size" defaultValue="32" className="bg-input border-border" disabled />
+                    <Input id="batch-size" placeholder="Enter batch size (e.g., 32)" className="bg-input border-border" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="epochs" className="text-foreground">Epochs</Label>
-                    <Input id="epochs" defaultValue="10" className="bg-input border-border" disabled />
+                    <Input id="epochs" placeholder="Enter number of epochs (e.g., 10)" className="bg-input border-border" />
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="temperature" className="text-foreground">Temperature</Label>
-                    <Input id="temperature" defaultValue="0.7" className="bg-input border-border" disabled />
+                    <Input id="temperature" placeholder="Enter temperature (e.g., 0.7)" className="bg-input border-border" />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="system-prompt" className="text-foreground">System Prompt</Label>
                   <Textarea 
                     id="system-prompt" 
-                    defaultValue="You are a helpful AI assistant that..."
+                    placeholder="Enter system prompt (e.g., You are a helpful AI assistant that...)"
                     className="bg-input border-border min-h-[100px]"
-                    disabled
                   />
                 </div>
               </CardContent>
