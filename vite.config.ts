@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: '/dash-guard/',
+  base: '/dash-guard',
   server: {
     host: "::",
     port: 8080,
