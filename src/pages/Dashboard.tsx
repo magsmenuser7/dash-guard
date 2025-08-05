@@ -141,7 +141,7 @@ const Dashboard = () => {
               Overview
             </TabsTrigger>
             
-            <TabsTrigger value="overview" className="flex items-center gap-1 ml-4">
+            <TabsTrigger value="overview" className="flex items-center gap-1 ml-3">
               <BarChart3 className="w-4 h-4" />
               Overview
             </TabsTrigger>
