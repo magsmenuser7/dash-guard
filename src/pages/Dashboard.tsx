@@ -130,7 +130,8 @@ const Dashboard = () => {
       {/* Navigation Tabs */}
       <div className="container mx-auto px-6 py-6">
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5 bg-card border border-border">
+          {/* <TabsList className="grid w-full grid-cols-5 bg-card border border-border"></TabsList> previous tablist */} 
+          <TabsList className="w-full bg-card border-border rounded-md grid-cols-5 grid md:grid-cols-5 md:grid overflow-x-auto flex-nowrap flex md:flex-none whitespace-nowrap sm:flex sm:overflow-x-auto sm:grid-cols-none">
             <TabsTrigger value="overview" className="flex items-center gap-2">
               <BarChart3 className="w-4 h-4" />
               Overview
@@ -412,7 +413,7 @@ const Dashboard = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-4">
-                  <div className="flex gap-4">
+                  <div className="flex gap-2">
                     <Button 
                       variant="gradient" 
                       className="flex items-center gap-2"
