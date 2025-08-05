@@ -30,9 +30,12 @@ const Dashboard = () => {
   const [isTraining, setIsTraining] = useState(false);
   const [trainingProgress, setTrainingProgress] = useState(0);
   const [showResponse, setShowResponse] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [trainingInterval, setTrainingInterval] = useState<NodeJS.Timeout | null>(null);
 
   const handleStartTraining = () => {
     setIsTraining(true);
+    setIsPaused(false);
     setTrainingProgress(0);
     
     // Simulate training progress
@@ -41,6 +44,7 @@ const Dashboard = () => {
         if (prev >= 100) {
           clearInterval(interval);
           setIsTraining(false);
+          setTrainingInterval(null);
           toast({
             title: "Training Complete",
             description: "Your AI agent has been successfully trained!",
@@ -50,6 +54,55 @@ const Dashboard = () => {
         return prev + 2;
       });
     }, 100);
+    setTrainingInterval(interval);
+  };
+
+  const handlePauseTraining = () => {
+    if (trainingInterval) {
+      clearInterval(trainingInterval);
+      setTrainingInterval(null);
+      setIsPaused(true);
+      toast({
+        title: "Training Paused",
+        description: "Training has been paused. Click Resume to continue.",
+      });
+    }
+  };
+
+  const handleResumeTraining = () => {
+    if (isPaused) {
+      const interval = setInterval(() => {
+        setTrainingProgress(prev => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            setIsTraining(false);
+            setTrainingInterval(null);
+            toast({
+              title: "Training Complete",
+              description: "Your AI agent has been successfully trained!",
+            });
+            return 100;
+          }
+          return prev + 2;
+        });
+      }, 100);
+      setTrainingInterval(interval);
+      setIsPaused(false);
+    }
+  };
+
+  const handleStopTraining = () => {
+    if (trainingInterval) {
+      clearInterval(trainingInterval);
+      setTrainingInterval(null);
+    }
+    setIsTraining(false);
+    setIsPaused(false);
+    setTrainingProgress(0);
+    toast({
+      title: "Training Stopped",
+      description: "Training has been stopped and reset.",
+    });
   };
 
   const handleTestModel = () => {
@@ -283,10 +336,30 @@ const Dashboard = () => {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="custom">Custom Model</SelectItem>
-                      <SelectItem value="gpt-3.5">GPT-3.5 Turbo</SelectItem>
-                      <SelectItem value="gpt-4">GPT-4</SelectItem>
-                      <SelectItem value="claude-3">Claude 3 Sonnet</SelectItem>
+                      <SelectItem value="gpt-3.5">
+                        <div>
+                          <div className="font-medium">GPT-3.5 Turbo</div>
+                          <div className="text-xs text-muted-foreground">Fast and efficient for most tasks</div>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="gpt-4">
+                        <div>
+                          <div className="font-medium">GPT-4</div>
+                          <div className="text-xs text-muted-foreground">More capable, slower response</div>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="claude-3">
+                        <div>
+                          <div className="font-medium">Claude 3 Sonnet</div>
+                          <div className="text-xs text-muted-foreground">Balanced performance and speed</div>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="custom">
+                        <div>
+                          <div className="font-medium">Custom Model</div>
+                          <div className="text-xs text-muted-foreground">Your trained model</div>
+                        </div>
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -349,11 +422,31 @@ const Dashboard = () => {
                       <Play className="w-4 h-4" />
                       {isTraining ? "Training..." : "Start Training"}
                     </Button>
-                    <Button variant="outline" className="flex items-center gap-2" disabled={!isTraining}>
+                    <Button 
+                      variant="outline" 
+                      className="flex items-center gap-2" 
+                      disabled={!isTraining || isPaused}
+                      onClick={handlePauseTraining}
+                    >
                       <Pause className="w-4 h-4" />
                       Pause
                     </Button>
-                    <Button variant="outline" className="flex items-center gap-2" disabled={!isTraining}>
+                    {isPaused && (
+                      <Button 
+                        variant="outline" 
+                        className="flex items-center gap-2"
+                        onClick={handleResumeTraining}
+                      >
+                        <Play className="w-4 h-4" />
+                        Resume
+                      </Button>
+                    )}
+                    <Button 
+                      variant="outline" 
+                      className="flex items-center gap-2" 
+                      disabled={!isTraining && !isPaused}
+                      onClick={handleStopTraining}
+                    >
                       <Square className="w-4 h-4" />
                       Stop
                     </Button>
