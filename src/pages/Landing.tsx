@@ -12,7 +12,7 @@ const Landing = () => {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse delay-1000" />
       
-      <div className="relative z-10 text-center max-w-4xl px-8 mx-auto">
+      <div className="relative z-10 text-center max-w-4xl px-8 mx-auto relative overflow-hidden py-8">
         {/* Logo/Icon */}
         <div className="mb-6 flex justify-center">
           <div className="p-3 rounded-full bg-gradient-primary shadow-glow">
@@ -42,14 +42,14 @@ const Landing = () => {
             Access Admin Panel
           </Button>
           
-          <Button 
+          {/* <Button 
             variant="outline-primary" 
             size="xl"
             className="min-w-[200px]"
           >
             <Zap className="w-5 h-5" />
             Start Training
-          </Button>
+          </Button> */}
         </div>
 
         {/* Feature Cards */}
