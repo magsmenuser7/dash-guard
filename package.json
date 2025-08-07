@@ -11,8 +11,9 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build && copy dist\\index.html dist\\404.html",
+   "predeploy": "npm run build && copy public\\CNAME dist\\CNAME",
     "deploy": "gh-pages -d dist"
+ 
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
