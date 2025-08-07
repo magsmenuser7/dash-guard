@@ -1,5 +1,5 @@
 {
-  "homepage": "https://training.mibbs.ai",
+  "homepage": "https://magsmenuser7.github.io/dash-guard/",
   "name": "vite_react_shadcn_ts",
   "private": true,
   "version": "0.0.0",
@@ -11,7 +11,7 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "npm run build",
+    "predeploy": "npm run build && copy dist\\index.html dist\\404.html",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
